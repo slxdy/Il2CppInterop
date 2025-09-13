@@ -110,7 +110,9 @@ public class RuntimeAssemblyReferences
         allTypes["System.Boolean"] = Module.DefaultImporter.ImportTypeSignature(typeof(bool));
         allTypes["System.Int64"] = Module.DefaultImporter.ImportTypeSignature(typeof(long));
 
-        var assemblyRef = new AssemblyReference("Il2CppInterop.Runtime", new Version(0, 0, 0, 0));
+        // Set the assembly ref version to match the generator version.
+        // In some special cases, msbuild tries to resolve the reference by version and might fail if it doesn't match the definition.
+        var assemblyRef = new AssemblyReference("Il2CppInterop.Runtime", typeof(RuntimeAssemblyReferences).Assembly.GetName().Version);
         Module.AssemblyReferences.Add(assemblyRef);
 
         Il2CppObjectBase =
